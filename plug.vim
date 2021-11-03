@@ -15,7 +15,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-abolish'
-Plug 'haishanh/night-owl.vim'
 
 " html
 Plug 'ap/vim-css-color'
