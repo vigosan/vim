@@ -1,50 +1,44 @@
 " =============== Plug configuration ===============
-packadd minpac
-call minpac#init()
+call plug#begin('~/.vim/plugged')
 
-call minpac#add('k-takata/minpac', {'type': 'opt'})  " Minimal package manager
-call minpac#add('SirVer/ultisnips')
-call minpac#add('honza/vim-snippets')
-call minpac#add('mhinz/vim-signify')
-call minpac#add('itchyny/lightline.vim')
-call minpac#add('junegunn/fzf')
-call minpac#add('junegunn/fzf.vim')
-call minpac#add('w0rp/ale')
-call minpac#add('Raimondi/delimitMate')
-call minpac#add('tpope/vim-fugitive')
-call minpac#add('tpope/vim-surround')
-call minpac#add('tpope/vim-repeat')
-call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-call minpac#add('tpope/vim-abolish')
-call minpac#add('haishanh/night-owl.vim')
+Plug 'k-takata/minpac', {'type': 'opt'}
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'mhinz/vim-signify'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'w0rp/ale'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-abolish'
+Plug 'haishanh/night-owl.vim'
 
 " html
-call minpac#add('ap/vim-css-color')
-call minpac#add('hail2u/vim-css3-syntax')
-call minpac#add('tpope/vim-haml')
-call minpac#add('tpope/vim-markdown')
+Plug 'ap/vim-css-color'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-markdown'
 
 " javascript
-call minpac#add('pangloss/vim-javascript')
-call minpac#add('mxw/vim-jsx')
-call minpac#add('isRuslan/vim-es6')
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'isRuslan/vim-es6'
 
 " typescript
-call minpac#add('leafgarland/typescript-vim')
-call minpac#add('ianks/vim-tsx')
+Plug 'leafgarland/typescript-vim'
+Plug 'ianks/vim-tsx'
 
 " graphql
-call minpac#add('jparise/vim-graphql')
+Plug 'jparise/vim-graphql'
 
 " ruby
-call minpac#add('vim-ruby/vim-ruby')
+Plug 'vim-ruby/vim-ruby'
 
 " {{{ Plugin Specific Settings
-" minpac
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
-command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
-command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
-
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
