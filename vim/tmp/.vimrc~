@@ -1,0 +1,288 @@
+augroup vimrc
+  autocmd!
+augroup END
+
+syntax on
+filetype plugin indent on
+
+" Vim header
+set t_RV=
+
+" No blink
+set noerrorbells
+set vb t_vb=
+autocmd GUIEnter * set vb t_vb=
+
+" Highlight current line
+set cursorline
+
+" Colorscheme
+colorscheme OceanicNext
+set t_Co=256
+" set background=dark
+
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+" Buffer Settings
+set hidden
+
+" Tab/Indent Settings
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set autoindent
+set smartindent
+
+" Search Settings
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set visualbell
+
+" Auto read and write
+set autoread
+set autowrite
+
+" Editor Settings
+set number
+set backspace=indent,eol,start
+
+" Display Settings
+set title
+set laststatus=2
+
+" Enhance command-line completion
+set wildmenu
+set wildmode=longest:list,full
+
+" Ignore certain files in tab-completion
+set wildignore=*.class,*.o,*~,*.pyc,.git,node_modules
+
+" Use UTF-8 without BOM
+set encoding=utf-8 nobomb
+
+" Optimize for fast terminal connections
+set ttyfast
+
+" Undo changes even after exiting file
+set undofile                " Save undo's after file closes
+set undodir=$HOME/.vim/undo " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+
+" Leader
+let mapleader = ","
+
+" python
+let g:python2_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" theme
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+
+" Backup
+set backup
+set noswapfile
+
+if !isdirectory(expand('~/.vim/tmp'))
+  call mkdir(expand('~/.vim/tmp'), 'p')
+endif
+
+set directory=~/.vim/tmp
+set backupdir=~/.vim/tmp
+set undodir=~/.vim/tmp
+" }}}
+
+" {{{ General Key Bindings
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>e :e %%
+map <leader>i mmgg=G`m<CR>
+
+noremap <leader><leader> <c-^>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Re-select visual block after indenting
+vnoremap < <gv
+vnoremap > >gv
+" }}}
+
+" {{{ On Save
+augroup WhiteSpace
+  autocmd!
+  autocmd BufWritePre,FileWritePre * :%s/\s\+$//e | %s/\r$//e
+augroup END
+
+augroup Mkdir
+  autocmd!
+  autocmd BufWritePre *
+    \ if !isdirectory(expand("<afile>:p:h")) |
+    \   call mkdir(expand("<afile>:p:h"), "p") |
+    \ endif
+augroup END
+
+augroup myvimrchooks
+  autocmd!
+  autocmd bufwritepost .vimrc source ~/.vimrc
+augroup END
+" }}}
+
+" {{{ Plugins
+packadd minpac
+call minpac#init()
+
+call minpac#add('mhartington/oceanic-next')
+call minpac#add('SirVer/ultisnips')
+call minpac#add('mhinz/vim-signify')
+call minpac#add('honza/vim-snippets')
+call minpac#add('isRuslan/vim-es6')
+call minpac#add('itchyny/lightline.vim')
+call minpac#add('junegunn/fzf')
+call minpac#add('k-takata/minpac', {'type': 'opt'})
+call minpac#add('mileszs/ack.vim')
+call minpac#add('mxw/vim-jsx')
+call minpac#add('pangloss/vim-javascript')
+call minpac#add('sheerun/vim-json')
+call minpac#add('stephpy/vim-yaml')
+call minpac#add('tpope/vim-endwise')
+call minpac#add('tpope/vim-haml')
+call minpac#add('tpope/vim-markdown')
+call minpac#add('vim-ruby/vim-ruby')
+call minpac#add('w0rp/ale')
+call minpac#add('mattn/emmet-vim')
+call minpac#add('Shougo/deoplete.nvim')
+call minpac#add('roxma/nvim-yarp')
+call minpac#add('roxma/vim-hug-neovim-rpc')
+" }}}
+
+" {{{ Plugin Specific Settings
+" minpac
+command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
+command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+
+" emmet
+let g:user_emmet_expandabbr_key = '<Tab>'
+let g:use_emmet_complete_tag = 1
+
+" ale
+let g:ale_linters = {
+      \ 'javascript': ['eslint', 'prettier'],
+      \ 'json': ['jsonlint'],
+      \ 'ruby': ['rubocop'],
+      \ 'scss': ['prettier'],
+      \ 'css': ['prettier']
+      \ }
+let g:ale_fixers = {
+      \ 'javascript': ['eslint', 'prettier'],
+      \ 'json': ['prettier'],
+      \ 'ruby': ['rubocop'],
+      \ 'scss': ['prettier'],
+      \ 'css': ['prettier']
+      \ }
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '.'
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_javascript_prettier_use_global = 1
+let g:ale_javascript_prettier_options = '--single-quote'
+let g:ale_fix_on_save = 1
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
+nmap <silent> [w <Plug>(ale_previous)
+nmap <silent> ]w <Plug>(ale_next)
+
+" ack
+let g:ackprg = 'ag --vimgrep --smart-case --ignore node_modules --ignore public'
+nnoremap K :Ack! "\b<C-R>=expand("<cword>")<CR>\b"<CR>
+cnoreabbrev ag Ack
+cnoreabbrev aG Ack
+cnoreabbrev Ag Ack
+cnoreabbrev AG Ack
+
+" fix my mistakes
+cnoreabbrev E e
+cnoreabbrev W w
+cnoreabbrev Wq wq
+cnoreabbrev Wqa wqa
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+
+" Lightline
+let g:lightline = {
+\ 'colorscheme': 'oceanicnext',
+\ 'active': {
+\   'left': [['mode', 'paste'], ['filename', 'modified']],
+\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+\ },
+\ 'component_expand': {
+\   'linter_warnings': 'LightlineLinterWarnings',
+\   'linter_errors': 'LightlineLinterErrors',
+\   'linter_ok': 'LightlineLinterOK'
+\ },
+\ 'component_type': {
+\   'readonly': 'error',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error'
+\ },
+\ }
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
+endfunction
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
+endfunction
+function! LightlineLinterOK() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '✓ ' : ''
+endfunction
+
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+autocmd User ALELint call s:MaybeUpdateLightline()
+function! s:MaybeUpdateLightline()
+  if exists('#lightline')
+    call lightline#update()
+  end
+endfunction
+
+" fzf
+nmap <Leader>f :FZF<CR>
+
+" vim-ruby
+let g:ruby_indent_assignment_style = 'variable'
+
+" vim-javascript
+let g:javascript_plugin_flow = 1
+
+" vim-jsx
+let g:jsx_ext_required = 0
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" }}}
+"
+" }}}
+
+" {{{ Macros
+runtime macros/matchit.vim
+" }}}

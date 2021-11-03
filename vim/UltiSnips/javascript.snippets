@@ -1,0 +1,67 @@
+# Declarations
+snippet v "var statement" w
+var ${1:name};
+endsnippet
+
+# Javascript
+snippet ac "Anonymous closure" w
+(function(${1:globalVariable}) {
+	$0
+}($1));
+endsnippet
+
+# React
+snippet ipt "Import PropTypes" w
+import PropTypes from 'prop-types';
+endsnippet
+
+snippet irtl "Import React Testing Library" w
+import { render } from '@testing-library/react';
+endsnippet
+
+snippet imex "Import and default export" w
+import $1 from './$1';
+
+export default $1$0;
+endsnippet
+
+snippet sw "Switch block" w
+switch ($1) {
+	$2:
+		return $0;
+}
+endsnippet
+
+# debug
+snippet wtf "What The Fuck" w
+console.log('$1'${2:, $1})$0;
+endsnippet
+
+snippet cl "console.log" w
+console.log($1)
+endsnippet
+
+# Test
+snippet aea "After block" w
+afterEach(function () {
+	$0
+});
+endsnippet
+
+snippet bea "Before block" w
+beforeEach(function () {
+	$0
+});
+endsnippet
+
+snippet des "describe a test" b
+describe('$1', function () {
+	$2
+});
+endsnippet
+
+snippet test "create a test block" b
+test('$1', function () {
+	$2
+});
+endsnippet
