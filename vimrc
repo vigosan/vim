@@ -22,7 +22,7 @@ set hidden
 syntax on
 
 " Colorscheme
-colorscheme night-owl
+colorscheme onehalflight
 set t_Co=256
 set background=dark
 
