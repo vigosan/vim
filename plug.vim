@@ -15,7 +15,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-abolish'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'sonph/onehalf'
+Plug 'arcticicestudio/nord-vim'
+Plug 'haishanh/night-owl.vim'
 
 " html
 Plug 'ap/vim-css-color'
@@ -111,7 +113,6 @@ let g:ale_sign_warning = '.'
 let g:ale_set_highlights = 1
 let g:ale_lint_on_text_changed = 0
 let g:airline#extensions#ale#enabled = 1
-let g:airline_theme='onehalfdark'
 
 let g:ale_linters = {
   \ 'javascript': ['eslint', 'prettier'],
