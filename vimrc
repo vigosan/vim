@@ -1,4 +1,11 @@
 " Use Vim settings, rather then Vi settings (much better!).
+" {{{ Plug Initialization
+if filereadable(expand("~/.vim/plug.vim"))
+  source ~/.vim/plug.vim
+endif
+au BufNewFile,BufRead *.vundle set filetype=vim
+" }}}
+
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
@@ -157,9 +164,3 @@ augroup myvimrchooks
 augroup END
 " }}}
 
-" {{{ Plug Initialization
-if filereadable(expand("~/.vim/plug.vim"))
-  source ~/.vim/plug.vim
-endif
-au BufNewFile,BufRead *.vundle set filetype=vim
-" }}}
