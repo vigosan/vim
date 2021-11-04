@@ -1,11 +1,4 @@
 " Use Vim settings, rather then Vi settings (much better!).
-" {{{ Plug Initialization
-if filereadable(expand("~/.vim/plug.vim"))
-  source ~/.vim/plug.vim
-endif
-au BufNewFile,BufRead *.vundle set filetype=vim
-" }}}
-
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
@@ -29,7 +22,6 @@ set hidden
 syntax on
 
 " Colorscheme
-colorscheme night-owl
 set t_Co=256
 set background=dark
 
@@ -162,5 +154,12 @@ augroup myvimrchooks
   autocmd!
   autocmd bufwritepost .vimrc source ~/.vimrc
 augroup END
+" }}}
+
+" {{{ Plug Initialization
+if filereadable(expand("~/.vim/plug.vim"))
+  source ~/.vim/plug.vim
+endif
+au BufNewFile,BufRead *.vundle set filetype=vim
 " }}}
 

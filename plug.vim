@@ -49,6 +49,8 @@ Plug 'vim-ruby/vim-ruby'
 call plug#end()
 
 " {{{ Plugin Specific Settings
+colorscheme night-owl
+
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
