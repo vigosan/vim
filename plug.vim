@@ -1,5 +1,5 @@
 " =============== Plug configuration ===============
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 
 Plug 'k-takata/minpac', {'type': 'opt'}
 Plug 'SirVer/ultisnips'
@@ -39,6 +39,8 @@ Plug 'jparise/vim-graphql'
 
 " ruby
 Plug 'vim-ruby/vim-ruby'
+
+call plug#end()
 
 " {{{ Plugin Specific Settings
 " UltiSnips

@@ -22,7 +22,7 @@ set hidden
 syntax on
 
 " Colorscheme
-colorscheme nord
+colorscheme night-owl
 set t_Co=256
 set background=dark
 
